@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuting.drug.dao.DrugDao">
+	<select id="queryDrugById" resultType="Drug">
+		select t1.drug_id,t1.drug_name,t1.inventory,e1.purchase_price,e1.purchase_number,e1.purchase_date,e1.provider,t1.producer,t1.specification,t1.price
+		from inventory_table t1
+		left join enter_drug_table e1 on t1.drug_id=e1.drug_id
+		where t1.drug_id=#{drug_id}
+	</select>
+	
+	<select id="queryDrugByCondition" resultType="Drug">
+	 	select t1.drug_id,t1.drug_name,t1.inventory,e1.purchase_price,e1.purchase_number,e1.purchase_date,e1.provider,t1.producer,t1.specification,t1.price
+		from inventory_table t1
+		left join enter_drug_table e1 on t1.drug_id=e1.drug_id
+	<where>
+		<if test="drug_id!=null and drug_id!=''">
+			and drug_id=#{drug_id}
+		</if>
+		<if test="drug_name!=null and drug_name!=''">
+			and drug_name like '%' #{drug_name} '%'
+		</if>
+		
+		<if test="purchase_number!=null and purchase_number!=''">
+			and purchase_number=#{purchase_number}
+		</if>
+		
+		<if test="purchase_price!=null and purchase_price!=''">
+			and purchase_price=#{purchase_price}
+		</if>
+		
+		<if test="purchase_date!=null and purchase_date!=''">
+			and purchase_date=#{purchase_date}
+		</if>
+		
+	</where>
+	order by e1.purchase_date desc
+	</select>
+
+	
+</mapper>
