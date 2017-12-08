@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.liyuting.drug.dao.EnterDrugDao">
+	<insert id="saveEnterDrug" parameterType="EnterDrug">
+		insert into enter_drug_table(bills_id,drug_id,purchase_price,purchase_number,purchase_date,provider)
+		values
+		(#{bills_id},#{drug_id},#{purchase_price},#{purchase_number},#{purchase_date},#{provider})
+	</insert>
+	<update id="saveEditEnterDrug">
+		update enter_drug_table set purchase_price=#{purchase_price},purchase_number=#{purchase_number},purchase_date=#{purchase_date},provider=#{provider}
+		where drug_id=#{drug_id}
+	</update>
+</mapper>
